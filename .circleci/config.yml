@@ -25,3 +25,8 @@ jobs:
           name: build image
           command: |
             make build 
+
+     - run:
+          name: upload image
+          command: |
+            make login tag upload 
