@@ -1,8 +1,8 @@
 version: 2.1
 jobs:
   build:
-    docker:
-      - image: amazon/aws-cli
+#    docker:
+#      - image: amazon/aws-cli
     machine: true  
     working_directory: ~/NGINX-Demos/nginx-hello
 
@@ -13,7 +13,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            yum -y install make wget docker
+            #yum -y install make wget docker
             make install
 
       - run:
