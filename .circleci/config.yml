@@ -13,6 +13,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
+            yum -y install make
             make install
 
       - run:
