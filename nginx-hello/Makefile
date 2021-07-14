@@ -5,7 +5,7 @@ lint:
 	./hadolint DockerfilePlainText
 
 login:
-	aws ecr get-login --region us-west-2 | docker login --username AWS --password-stdin 242437545548.dkr.ecr.us-west-2.amazonaws.com
+	docker login -u AWS -p $(aws ecr get-login --region us-west-2) 242437545548.dkr.ecr.us-west-2.amazonaws.com
 
 build:
 	docker build -t nginxhellosimple . -f DockerfilePlainText
@@ -26,5 +26,6 @@ clean:
 	docker rm nginxhellosimple --force
 
 deploy:
+	aws ecr get-login --region us-west-2 | docker login --username AWS --password-stdin 242437545548.dkr.ecr.us-west-2.amazonaws.com
 
 all: install lint build tag scan upload run clean
