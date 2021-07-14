@@ -5,7 +5,7 @@ lint:
 	./hadolint DockerfilePlainText
 
 login:
-	aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 242437545548.dkr.ecr.us-west-2.amazonaws.com
+	aws ecr get-login --region us-west-2 | docker login --username AWS --password-stdin 242437545548.dkr.ecr.us-west-2.amazonaws.com
 
 build:
 	docker build -t nginxhellosimple . -f DockerfilePlainText
