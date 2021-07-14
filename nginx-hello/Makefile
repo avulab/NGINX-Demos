@@ -31,6 +31,12 @@ clean:
 	docker rm nginxhellosimple --force
 
 deploy:
-	aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 242437545548.dkr.ecr.us-west-2.amazonaws.com
+	eksctl create cluster \
+		--name nginxhello \
+		--region us-west-2 \
+		--with-oidc \
+		--ssh-access \
+		--ssh-public-key udacity \
+		--managed
 
 all: install lint build tag scan upload run clean
