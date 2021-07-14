@@ -5,7 +5,7 @@ lint:
 	./hadolint DockerfilePlainText
 
 login:
-	$(aws ecr get-login --no-include-email --region us-west-2)
+	eval $(aws ecr get-login --no-include-email --region us-west-2)
 
 build:
 	docker build -t nginxhellosimple . -f DockerfilePlainText
