@@ -13,7 +13,6 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            #yum -y install make wget docker
             make install
 
       - run:
