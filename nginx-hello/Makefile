@@ -4,7 +4,7 @@ install:
 	curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz" | tar xz -C .
 	curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl &&\
 		chmod +x ./kubectl
-	eksctl info
+	PATH=.:$PATH eksctl info
 lint:
 	./hadolint DockerfilePlainText
 
