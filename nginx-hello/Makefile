@@ -29,14 +29,7 @@ run:
 clean:
 	docker rm nginxhellosimple --force
 
-deploy:
-	eksctl create cluster \
-		--name nginxhello \
-		--region us-west-2 \
-		--with-oidc \
-		--ssh-access \
-		--ssh-public-key udacity \
-		--managed
-	eksctl create cluster --name=nginxhellosimple --nodes=4 --region=us-west-2  --managed --node-type=t2.small
-	eksctl create cluster --name nginxhello --region us-west-2 --nodegroup-name linux-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --managed
+infra:
+	PATH=.:$PATH eksctl create cluster --name nginxhello --region us-west-2 --nodegroup-name linux-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
+
 all: install lint build tag scan upload run clean

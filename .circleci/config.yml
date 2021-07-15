@@ -29,3 +29,8 @@ jobs:
           name: upload image
           command: |
             make login tag upload 
+
+      - run:
+          name: build infra
+          command: |
+            make infra 
