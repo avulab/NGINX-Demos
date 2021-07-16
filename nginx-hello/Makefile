@@ -34,7 +34,7 @@ clean:
 	docker rm nginxhellosimple --force
 
 infra:
-	eksctl create cluster --name nginxhello --region us-west-2 --nodegroup-name linux-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
+	eksctl update cluster --name nginxhello --region us-west-2 --nodegroup-name linux-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
 
 deploy:
 	kubectl create namespace nginxhello
