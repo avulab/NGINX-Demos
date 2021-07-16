@@ -18,7 +18,7 @@ jobs:
           command: |
             make lint 
 
-  Build & Upload:
+  Build_and_Upload:
     machine: true  
     working_directory: ~/NGINX-Demos/nginx-hello
 
@@ -36,9 +36,9 @@ jobs:
           command: |
             make login tag upload 
 
-  Deploy & Run:
+  Deploy_and_Run:
     docker: 
-      amazon/aws-cli  
+      - image: amazon/aws-cli  
     working_directory: ~/NGINX-Demos/nginx-hello
 
     steps:
@@ -54,9 +54,9 @@ workflows:
   lint-build-and-deploy:
     jobs:
       - Lint
-      - Build & Upload:
+      - Build_and_Upload:
           requires:
             - Lint
-      - Deploy & Run:
+      - Deploy_and_Run:
           requires:
-            - Build & Upload
+            - Build_and_Upload
