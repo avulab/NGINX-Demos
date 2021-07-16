@@ -3,4 +3,5 @@ unzip -q awscliv2.zip
 which_aws=`which aws`
 bin_dir=`dirname $which_aws`
 install_dir=`ls -l $which_aws|sed 's/.*\>//'|sed 's/aws-cli.*/aws-cli/'`
+ls -l $which_aws
 echo sudo ./aws/install --bin-dir $bin_dir --install-dir $install_dir --update  && exit 1
