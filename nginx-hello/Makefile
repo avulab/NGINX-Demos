@@ -32,4 +32,10 @@ clean:
 infra:
 	eksctl create cluster --name nginxhello --region us-west-2 --nodegroup-name linux-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
 
+deploy:
+	kubectl create namespace nginxhello
+	kubectl apply -f nginxhello_service.yml
+	kubectl set image deployments/nginxhello nginxhello=242437545548.dkr.ecr.us-west-2.amazonaws.com/nginxhellosimple:latest
+
+
 all: install lint build tag scan upload run clean
