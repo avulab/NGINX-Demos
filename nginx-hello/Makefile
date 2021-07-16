@@ -7,7 +7,7 @@ awsinstall:
 	curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl &&\
 		chmod +x ./kubectl
 	sudo cp ./*ctl /usr/local/bin/
-	./update_awscli.sh
+	sh ./update_awscli.sh
 
 lint:
 	./hadolint DockerfilePlainText
