@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginxhello
+  namespace: nginxhello
+  labels:
+    app: nginxhello
+spec:
+  selector:
+    app: nginxhello
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginxhello
+  namespace: nginxhello
+  labels:
+    app: nginxhello
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginxhello
+  template:
+    metadata:
+      labels:
+        app: nginxhello
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: beta.kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+      containers:
+      - name: nginxhellosimple
+        image: 242437545548.dkr.ecr.us-west-2.amazonaws.com/nginxhellosimple
+        ports:
+        - containerPort: 80
