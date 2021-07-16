@@ -37,8 +37,7 @@ jobs:
             make login tag upload 
 
   Deploy_and_Run:
-    docker: 
-      - image: amazon/aws-cli  
+    machine: true
     working_directory: ~/NGINX-Demos/nginx-hello
 
     steps:

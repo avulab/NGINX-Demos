@@ -4,7 +4,7 @@ install:
 	curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz" | tar xz -C .
 	curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl &&\
 		chmod +x ./kubectl
-	PATH=.:$PATH eksctl info
+	sudo cp ./*ctl /usr/local/bin/
 lint:
 	./hadolint DockerfilePlainText
 
@@ -30,6 +30,6 @@ clean:
 	docker rm nginxhellosimple --force
 
 infra:
-	PATH=.:$PATH eksctl create cluster --name nginxhello --region us-west-2 --nodegroup-name linux-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
+	eksctl create cluster --name nginxhello --region us-west-2 --nodegroup-name linux-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
 
 all: install lint build tag scan upload run clean
