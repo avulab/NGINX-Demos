@@ -1,16 +1,13 @@
 lintinstall:
-	aws --version
 	wget -O ./hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
 		chmod +x ./hadolint
-	pip install awscli --upgrade --user
-	aws --version && exit 1
 
-eksinstall:   
-	pip install awscli --upgrade --user
+awsinstall:   
 	curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz" | tar xz -C .
 	curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl &&\
 		chmod +x ./kubectl
 	sudo cp ./*ctl /usr/local/bin/
+	./update_awscli.sh
 
 lint:
 	./hadolint DockerfilePlainText
@@ -48,4 +45,4 @@ deploy:
 	kubectl set image deployment nginxhello=242437545548.dkr.ecr.us-west-2.amazonaws.com/nginxhellosimple:latest --all
 
 
-all: lintinstall eksinstall lint build tag scan upload run clean infra deploy
+all: lintinstall awsinstall lint build tag scan upload run clean infra deploy
