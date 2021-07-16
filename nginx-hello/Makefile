@@ -2,7 +2,7 @@ lintinstall:
 	aws --version
 	wget -O ./hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
 		chmod +x ./hadolint
-	pip install awscli --upgrade --user
+	pip install --upgrade pip &&& pip install awscli --upgrade --user
 	aws --version && exit 1
 
 eksinstall:   
