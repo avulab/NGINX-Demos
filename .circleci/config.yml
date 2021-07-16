@@ -1,8 +1,6 @@
 version: 2.1
 jobs:
-  build:
-#    docker:
-#      - image: amazon/aws-cli
+  Lint:
     machine: true  
     working_directory: ~/NGINX-Demos/nginx-hello
 
@@ -20,6 +18,14 @@ jobs:
           command: |
             make lint 
 
+  Build & Upload:
+    machine: true  
+    working_directory: ~/NGINX-Demos/nginx-hello
+
+    steps:
+      - checkout:
+          path: ~/NGINX-Demos
+
       - run:
           name: build image
           command: |
@@ -30,7 +36,26 @@ jobs:
           command: |
             make login tag upload 
 
+  Deploy & Run:
+    docker: amazon/aws-cli  
+    working_directory: ~/NGINX-Demos/nginx-hello
+
+    steps:
+      - checkout:
+          path: ~/NGINX-Demos
       - run:
           name: build infra
           command: |
             make infra 
+
+workflows:
+  version: 2
+  lint-build-and-deploy:
+    jobs:
+      - Lint
+      - Build & Upload:
+          requires:
+            - Lint
+      - Deploy & Run:
+          requires:
+            - Build & Upload
