@@ -46,7 +46,7 @@ jobs:
       - run:
           name: Config kubectl
           command: |
-            make awsinstall config
+            make eksinstall config
       - run:
           name: rolling update
           command: |
