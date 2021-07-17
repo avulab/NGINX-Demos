@@ -1,5 +1,27 @@
 version: 2.1
 jobs:
+  Infra:
+    machine: true  
+    working_directory: ~/NGINX-Demos/nginx-hello
+
+    steps:
+      - checkout:
+          path: ~/NGINX-Demos
+
+      - run:
+          name: install dependencies
+          command: |
+            make awsinstall
+
+      - run:
+          name: Build Infra
+          command: |
+            make infra 
+      - persist_to_workspace:
+          root: ~/.kube
+          paths:
+            - config
+    
   Lint:
     machine: true  
     working_directory: ~/NGINX-Demos/nginx-hello
@@ -43,6 +65,8 @@ jobs:
     steps:
       - checkout:
           path: ~/NGINX-Demos
+      - attach_workspace:
+          at: ~/.kube
       - run:
           name: Config kubectl
           command: |
@@ -56,6 +80,7 @@ workflows:
   version: 2
   lint-build-and-deploy:
     jobs:
+      - Infra
       - Lint
       - Build_and_Upload:
           requires:
