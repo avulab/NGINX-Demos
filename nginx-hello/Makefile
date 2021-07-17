@@ -33,15 +33,15 @@ clean:
 	docker rm nginxhellosimple --force
 
 infra:
-	eksctl create cluster --name nginxhello --region us-west-2 --nodegroup-name linux-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
-	kubectl create namespace nginxhello
+	eksctl create cluster --name nginxhellosimple --region us-west-2 --nodegroup-name nginx-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
+	kubectl create namespace nginxhellosimple
 
 config:
-	aws eks --region us-west-2  update-kubeconfig --name nginxhello 
+	aws eks --region us-west-2  update-kubeconfig --name nginxhellosimple 
 
 deploy:
 	kubectl apply -f nginxhello_service.yml
-	kubectl set image deployment nginxhello=242437545548.dkr.ecr.us-west-2.amazonaws.com/nginxhellosimple:latest --all
+	kubectl set image deployment nginxhellosimple=242437545548.dkr.ecr.us-west-2.amazonaws.com/nginxhellosimple:latest --all
 
 
 all: lintinstall awsinstall lint build tag scan upload run clean infra deploy
