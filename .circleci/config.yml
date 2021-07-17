@@ -80,7 +80,6 @@ workflows:
   version: 2
   lint-build-and-deploy:
     jobs:
-      - Infra
       - Lint
       - Build_and_Upload:
           requires:
