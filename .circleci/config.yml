@@ -1,8 +1,8 @@
 version: 2.1
 jobs:
   Infra:
-    machine:
-      image: ubuntu-2004:202104-01  
+    dcoker:
+      image: weaveworks/eksctl  
     working_directory: ~/NGINX-Demos/nginx-hello
 
     steps:
@@ -12,12 +12,13 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            make awsinstall
+            echo make awsinstall
 
       - run:
           name: Build Infra
           command: |
-            make infra 
+            echo make infra
+            eksctl create cluster --name nginxhellosimple --regikubectl create namespace nginxhellosimpleon us-west-2 --nodegroup-name nginx-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
       - persist_to_workspace:
           root: ~/.kube
           paths:
