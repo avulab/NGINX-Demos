@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   Infra:
-    dcoker:
+    ddocker:
       image: weaveworks/eksctl  
     working_directory: ~/NGINX-Demos/nginx-hello
 
