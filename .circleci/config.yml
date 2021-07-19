@@ -63,7 +63,7 @@ jobs:
 
   Deploy_and_Run:
     docker: 
-      - image: bitnami/kubectl
+      - image: dtzar/helm-kubectl
     working_directory: ~/NGINX-Demos/nginx-hello
 
     steps:
