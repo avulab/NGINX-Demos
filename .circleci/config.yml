@@ -61,7 +61,8 @@ jobs:
             make login tag upload 
 
   Deploy_and_Run:
-    machine: true
+    docker: 
+      image: bitnami/kubectl
     working_directory: ~/NGINX-Demos/nginx-hello
 
     steps:
@@ -72,7 +73,7 @@ jobs:
       - run:
           name: Config kubectl
           command: |
-            make awsinstall
+            aws eks --region us-west-2  update-kubeconfig --name nginxhellosimple
       - run:
           name: rolling update
           command: |
@@ -82,6 +83,7 @@ workflows:
   version: 2
   lint-build-and-deploy:
     jobs:
+      - Infra
       - Lint
       - Build_and_Upload:
           requires:
