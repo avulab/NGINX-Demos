@@ -1,17 +1,17 @@
 version: 2.1
 jobs:
   Infra:
-    docker:
-    - image: bitnami/kubectl  
+    machine: true  
+    working_directory: ~/NGINX-Demos/nginx-hello
 
     steps:
+      - checkout:
+          path: ~/NGINX-Demos
+
       - run:
-          name: Build Infra
+          name: install dependencies
           command: |
-            echo make infra
-            eksctl create cluster --name nginxhellosimple --region us-west-2 --nodegroup-name nginx-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity
-            kubectl create namespace nginxhellosimple
-    
+            make awsinstall    
   Lint:
     machine: true  
     working_directory: ~/NGINX-Demos/nginx-hello
