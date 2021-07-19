@@ -11,7 +11,12 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            make awsinstall    
+            make awsinstall   
+      - run:
+          name: Build Infra
+          command: |
+            make infra 
+
   Lint:
     machine: true  
     working_directory: ~/NGINX-Demos/nginx-hello
