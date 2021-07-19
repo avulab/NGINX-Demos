@@ -5,12 +5,6 @@ jobs:
     - image: bitnami/kubectl  
 
     steps:
-
-      - run:
-          name: install dependencies
-          command: |
-            echo make awsinstall
-
       - run:
           name: Build Infra
           command: |
