@@ -7,6 +7,7 @@ awsinstall:
 	curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl &&\
 		chmod +x ./kubectl
 	sudo cp ./*ctl /usr/local/bin/
+	sh ./update_awscli.sh
 
 lint:
 	./hadolint DockerfilePlainText
@@ -33,8 +34,8 @@ clean:
 	docker rm nginxhellosimple --force
 
 infra:
-	eksctl create cluster --name nginxhellosimple --region us-west-2 --nodegroup-name nginx-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
-	kubectl create namespace nginxhellosimple
+	eksctl create cluster --name nginxhellosimple --regikubectl create namespace nginxhellosimpleon us-west-2 --nodegroup-name nginx-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
+	
 
 config:
 	aws eks --region us-west-2  update-kubeconfig --name nginxhellosimple 
