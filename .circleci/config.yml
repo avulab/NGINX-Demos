@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  Infra:
+  EKSCluster:
     machine: true  
     working_directory: ~/NGINX-Demos/nginx-hello
 
@@ -11,11 +11,11 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            make awsinstall   
+            make awstools   
       - run:
-          name: Build Infra
+          name: Build EKS Cluster
           command: |
-            make infra 
+            make cluster 
 
   Lint:
     machine: true  
@@ -52,6 +52,22 @@ jobs:
           name: upload image
           command: |
             make login tag upload 
+  Namespace:
+    docker: 
+      - image: amazon/aws-cli
+    working_directory: ~/NGINX-Demos/nginx-hello
+
+    steps:
+      - checkout:
+          path: ~/NGINX-Demos
+      - run:
+          name: install dependencies
+          command: |
+            make awstools   
+      - run:
+          name: Create Namespace
+          command: |
+            make namespace 
 
   Deploy_and_Run:
     docker: 
@@ -64,7 +80,7 @@ jobs:
       - run:
           name: Config kubectl
           command: |
-            aws eks --region us-west-2  update-kubeconfig --name nginxhellosimple
+            make config
       - run:
           name: rolling update
           command: |
