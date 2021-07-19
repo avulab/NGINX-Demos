@@ -6,8 +6,6 @@ jobs:
     working_directory: ~/NGINX-Demos/nginx-hello
 
     steps:
-      - checkout:
-          path: ~/NGINX-Demos
 
       - run:
           name: install dependencies
