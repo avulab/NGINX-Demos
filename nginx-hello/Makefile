@@ -34,8 +34,8 @@ clean:
 	docker rm nginxhellosimple --force
 
 infra:
-	eksctl create cluster --name nginxhellosimple --regikubectl create namespace nginxhellosimpleon us-west-2 --nodegroup-name nginx-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
-	
+	eksctl create cluster --name nginxhellosimple --region us-west-2 --nodegroup-name nginx-nodes --node-type t2.small --nodes 3 --nodes-min 1 --ssh-access --ssh-public-key udacity --managed
+	kubectl create namespace nginxhellosimple
 
 config:
 	aws eks --region us-west-2  update-kubeconfig --name nginxhellosimple 
