@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   Infra:
     docker:
-    - image: weaveworks/eksctl  
+    - image: bitnami/kubectl  
     working_directory: ~/NGINX-Demos/nginx-hello
 
     steps:
