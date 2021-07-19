@@ -63,11 +63,16 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            make awstools   
+	          curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl &&\
+		          chmod +x ./kubectl   
+      - run:
+          name: Config kubectl
+          command: |
+            aws eks --region us-west-2  update-kubeconfig --name nginxhellosimple
       - run:
           name: Create Namespace
           command: |
-            make namespace 
+            ./kubectl create namespace nginxhellosimple 
 
   Deploy_and_Run:
     docker: 
@@ -77,14 +82,20 @@ jobs:
     steps:
       - checkout:
           path: ~/NGINX-Demos
+     - run:
+          name: install dependencies
+          command: |
+	          curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl &&\
+		          chmod +x ./kubectl
       - run:
           name: Config kubectl
           command: |
-            make config
+            aws eks --region us-west-2  update-kubeconfig --name nginxhellosimple
       - run:
           name: rolling update
           command: |
-            make deploy
+            ./kubectl apply -f nginxhello_service.yml
+            ./kubectl set image deployment nginxhellosimple=242437545548.dkr.ecr.us-west-2.amazonaws.com/nginxhellosimple:latest --all
 
 workflows:
   version: 2
