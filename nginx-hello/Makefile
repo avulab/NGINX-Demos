@@ -43,4 +43,4 @@ config:
 
 deploy:
 	kubectl apply -f nginxhello_service.yml
-	kubectl set image deployment nginxhellosimple=242437545548.dkr.ecr.us-west-2.amazonaws.com/nginxhellosimple:latest --all
+	kubectl set image deployment nginxhellosimple=242437545548.dkr.ecr.us-west-2.amazonaws.com/nginxhellosimple:latest --all -n nginxhellosimple
